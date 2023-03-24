@@ -10,9 +10,6 @@ output "test-private-subnet" {
 output "test-route-table-pub" {
   value = aws_route_table.test-route-table-pub.id
 }
-output "s3_bucket_name" {
-  value = aws_s3_bucket.s3-backend.id
-}
 output "nginx-server" {
   value = aws_instance.nginx-server.id
 }

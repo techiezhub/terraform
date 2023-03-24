@@ -80,17 +80,7 @@ resource "aws_route_table_association" "test-route-asso-pub" {
 #   subnet_id = element(aws_subnet.test-private-subnet.*.id, count.index)
 #   route_table_id = aws_route_table.test-route-table-pri.id
 # }
-resource "aws_s3_bucket" "s3-backend" {
-  bucket = "${var.environment}-tf-statefile-bucket"
-}
-resource "aws_s3_bucket_public_access_block" "s3-backend-acl" {
-  bucket = aws_s3_bucket.s3-backend.id
 
-  block_public_acls       = true
-  block_public_policy     = true
-  ignore_public_acls      = true
-  restrict_public_buckets = true
-}
 resource "aws_instance" "nginx-server" {
   ami = var.ami
   instance_type = var.instance_type

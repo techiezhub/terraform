@@ -1,6 +1,10 @@
 data "aws_availability_zones" "available" {}
 module "vpc" {
+<<<<<<< HEAD
   source = "../modules/vpc"
+=======
+  source = "./modules/vpc"
+>>>>>>> 8b4ef006b8d2a36d582de1560244ef257de0ed31
   region = var.region
   environment = var.environment
   cidr_block = var.cidr_block

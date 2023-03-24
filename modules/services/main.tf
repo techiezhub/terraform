@@ -80,8 +80,39 @@ resource "aws_route_table_association" "test-route-asso-pub" {
 #   subnet_id = element(aws_subnet.test-private-subnet.*.id, count.index)
 #   route_table_id = aws_route_table.test-route-table-pri.id
 # }
+resource "aws_s3_bucket" "s3-backend" {
+  bucket = "${var.environment}-tf-statefile-bucket"
+}
+resource "aws_s3_bucket_public_access_block" "s3-backend-acl" {
+  bucket = aws_s3_bucket.s3-backend.id
 
-
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+resource "aws_instance" "nginx-server" {
+  ami = var.ami
+  instance_type = var.instance_type
+  associate_public_ip_address = var.associate_public_ip_address
+  key_name = var.key_name
+  subnet_id = aws_subnet.test-public-subnet.0.id 
+  tags = {
+    "Name" = "nginx-server"
+  }
+}
+resource "aws_ebs_volume" "data-vol" {
+  availability_zone = "us-east-1a"
+  size = var.size
+  tags = {
+    Name = "Data-Volume"
+  }
+}
+resource "aws_volume_attachment" "data-vol-attach" {
+  device_name = "/dev/sdh"
+  volume_id = "${aws_ebs_volume.data-vol.id}"
+  instance_id = "${aws_instance.nginx-server.id}"
+}
 
 
 

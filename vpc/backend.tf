@@ -11,8 +11,3 @@ provider "aws" {
   shared_credentials_files = ["/root/.aws/credentials"] 
   profile = "default"
 }
-module "s3backend" {
-  source = "../modules/s3backend"
-  environment = var.environment
-  service = var.service
-}

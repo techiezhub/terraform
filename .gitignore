@@ -8,4 +8,4 @@ vpc/.terraform
 .terraform/*
 terraform.tfstate
 terraform.tfstate.backup
-vpc/.terraform.lock.hcl
+/vpc/.terraform.lock.hcl

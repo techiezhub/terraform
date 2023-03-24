@@ -4,3 +4,9 @@ variable "availability_zones" {}
 variable "private_subnets_cidr" {}
 variable "region" {}
 variable "environment" {}
+variable "service" {}
+variable "ami" {}
+variable "instance_type" {}
+variable "associate_public_ip_address" {}
+variable "key_name" {}
+variable "size" {}

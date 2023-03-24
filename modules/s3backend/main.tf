@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "s3-backend" {
-  bucket = "${var.environment}-tf-state-buck"
+  bucket = "${var.environment}-${var.service}tf-state-buck"
 }
 resource "aws_s3_bucket_public_access_block" "s3-backend-acl" {
   bucket = aws_s3_bucket.s3-backend.id

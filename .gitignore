@@ -1,4 +1,5 @@
+terraform.tfstate*
 /*.terraform
 .terraform/
-/vpc/.terraform/*
+vpc/.terraform/*
 /*/.terraform/*

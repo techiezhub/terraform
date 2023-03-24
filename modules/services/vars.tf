@@ -10,3 +10,4 @@ variable "instance_type" {}
 variable "associate_public_ip_address" {}
 variable "key_name" {}
 variable "size" {}
+variable "root_block_device" {}

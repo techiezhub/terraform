@@ -80,6 +80,25 @@ resource "aws_route_table_association" "test-route-asso-pub" {
 #   subnet_id = element(aws_subnet.test-private-subnet.*.id, count.index)
 #   route_table_id = aws_route_table.test-route-table-pri.id
 # }
+resource "aws_security_group" "allow-all" {
+  name = "allow-all"
+  vpc_id = aws_vpc.test-vpc.id
+  ingress {
+    from_port = 0
+    to_port = 0
+    protocol = -1
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = -1
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = {
+    Name = "allow-all"
+  }
+}
 
 resource "aws_instance" "nginx-server" {
   ami = var.ami
@@ -87,6 +106,18 @@ resource "aws_instance" "nginx-server" {
   associate_public_ip_address = var.associate_public_ip_address
   key_name = var.key_name
   subnet_id = aws_subnet.test-public-subnet.0.id 
+  security_groups = [aws_security_group.allow-all.id]
+  root_block_device {
+    delete_on_termination = true
+    volume_size = 15
+    volume_type = "gp3"
+    }  
+  user_data = <<EOF
+  #!/bin/bash
+  apt-get update
+  apt-get install nginx -y
+  service nginx start
+  EOF
   tags = {
     "Name" = "nginx-server"
   }

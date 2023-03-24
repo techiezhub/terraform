@@ -13,6 +13,7 @@ module "services" {
   associate_public_ip_address = var.associate_public_ip_address
   key_name = var.key_name
   size = var.size
+  root_block_device = var.root_block_device
 }
 
 

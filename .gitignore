@@ -1,0 +1,6 @@
+terraform.tfstate*
+/*.terraform
+.terraform/
+vpc/.terraform
+/*/.terraform/*
+.git
